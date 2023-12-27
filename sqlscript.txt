@@ -1,0 +1,153 @@
+﻿
+(LocalDB)\MSSQLLocalDB
+Moeedptdb
+CREATE TABLE [dbo].admins
+(
+    [username] NVARCHAR(50) NOT NULL, 
+    [password] NVARCHAR(50) NOT NULL, 
+    [status] NVARCHAR(50) NULL, 
+    PRIMARY KEY ([username])
+)
+admins(username,password,status)
+
+CREATE TABLE [dbo].[users] (
+    [name]     NVARCHAR (50) NOT NULL,
+    [sirname]  NVARCHAR (50) NULL,
+    [username] NVARCHAR (50) NOT NULL,
+    [password] NVARCHAR (50) NULL,
+    [email]    NVARCHAR (50) NULL,
+    [language] NVARCHAR (50) NULL,
+    [usertype] NVARCHAR(50) NULL, 
+    [status] NVARCHAR(50) NULL, 
+    CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED ([username] ASC)
+);
+users(name,sirname,username,password,email,language,usertype,status)
+////////////
+https://www.zameen.com/rentals.html
+Property
+category=>commercial,Home
+type=>House ,flates etc
+///////////
+CREATE TABLE [dbo].[properties] (
+    [Id]          INT            IDENTITY (1, 1) NOT NULL,
+    [title]       NVARCHAR (50)  NULL,
+    [description] NVARCHAR (MAX) NULL,
+    [category]    NVARCHAR (50)  NULL,
+    [type]        NVARCHAR (50)  NULL,
+    [area_size]   NVARCHAR(50)   NULL,
+    [location]    NVARCHAR (MAX) NULL,
+    [address]     NVARCHAR (MAX) NULL,
+    [city]        NVARCHAR (50)  NULL,
+    [amount]      DECIMAL (18)   NULL,
+    [status]      NVARCHAR (50)  NULL,
+    [photo]       NVARCHAR (MAX) NULL,
+    [remarks]     NVARCHAR (50)  NULL,
+    [owner]       NVARCHAR (50)  NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+properties(title,description,category,type,area_size,location,address,city,amount,status,photo,remarks,owner)
+CREATE TABLE [dbo].[requests] (
+    [Id]          INT           NOT NULL IDENTITY,
+    [tenant]      NVARCHAR (50) NULL,
+    [property_no] INT           NULL,
+    [req_date]    DATE          NULL,
+    [status]      NVARCHAR (50) NULL,
+    [owner]       NVARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+requests(tenant,property_no,req_date,status,owner)
+CREATE TABLE [dbo].[rental_contracts] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [owner]       NVARCHAR (50) NULL,
+    [tentant]     NVARCHAR (50) NULL,
+    [property_no] INT           NULL,
+    [amount]      DECIMAL (18)  NULL,
+    [doa]         DATE          NULL,
+    [status]      NVARCHAR (50) NULL,
+    [months]      NVARCHAR (50) NULL,
+    [years]       NVARCHAR (50) NULL,
+    [statement] NVARCHAR(MAX) NULL, 
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+
+
+rental_contracts(owner,tentant,property_no,amount,doa,status,months,years,statement)
+CREATE TABLE [dbo].transactions
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [property_no] INT NULL, 
+    [owner] NVARCHAR(50) NULL, 
+    [tenant] NVARCHAR(50) NULL, 
+    [contract_no] INT NULL, 
+    [amont] DECIMAL NULL, 
+    [dot] DATE NULL, 
+    [months] NVARCHAR(50) NULL, 
+    [years] NVARCHAR(50) NULL, 
+    [status] NVARCHAR(50) NULL
+)
+transactions(property_no,owner,tenant,contract_no,amont,dot,months,years,status)
+
+CREATE TABLE [dbo].[feedbacks] (
+    [Id]       INT            IDENTITY (1, 1) NOT NULL,
+    [landlord] NVARCHAR (50)  NULL,
+    [tenant]   NVARCHAR (50)  NULL,
+    [rating]   DECIMAL (18)   NULL,
+    [comment]  NVARCHAR (MAX) NULL,
+    [dof]      DATE           NULL,
+    [status]   NVARCHAR (50)  NULL,
+    [remarks]  NVARCHAR (MAX) NULL,
+    [usertype] NVARCHAR(50) NULL, 
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+feedbacks(landlord,tenant,rating,comment,dof,status,remarks,usertype)
+
+/////////////////////////////
+
+
+SELECT 
+    rc.tentant AS TenantName,
+    rc.id AS contract_no,
+    rc.owner AS Owner,
+    rc.property_no As property_no
+    p.title AS PropertyTitle,
+    p.description AS PropertyDescription
+FROM
+    rental_contracts rc
+JOIN
+    properties p ON rc.property_no = p.Id
+    where rc.tentant='tenant1';
+    ////////////////////////////////////////
+
+    
+SELECT 
+    rc.tentant AS TenantName,
+    rc.id AS contract_no,
+    rc.owner AS Owner,
+    rc.property_no As property_no,
+    p.title AS PropertyTitle,
+    p.description AS PropertyDescription
+FROM
+    rental_contracts rc
+JOIN
+    properties p ON rc.property_no = p.Id
+    where p.title='Uniform Homes 10 marla';
+
+/////////////////
+https://syntaxfix.com/question/22199/get-the-system-date-and-split-day-month-and-year
+//////////////
+
+
+
+
+//https://www.youtube.com/watch?v=3la5ZZxfoFU
+
+
+/////////crystal Reports///////////
+https://www.youtube.com/watch?v=eZggFzc4Nok
+https://www.youtube.com/watch?v=Ys2MfQHPQ88
